@@ -1,26 +1,23 @@
-import { useState } from 'react'
 import './App.css'
-import { Logo } from "components/Logo"
+import { Tabs } from "components/Tabs"
+import { Suspense, lazy } from "react"
+
+const Skinning = lazy(() => import('components/Skinning'))
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <Logo />
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="w-screen h-screen p-2">
+      <Tabs tabs={[
+        {
+          key: 1,
+          title: "Computer",
+          content: <Suspense fallback={<div className="text-gray-500">Loading...</div>}>
+            <Skinning />
+          </Suspense>
+        }
+      ]} />
+    </div>
   )
 }
 
